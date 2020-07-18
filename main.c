@@ -44,7 +44,22 @@ void arrivals(void* args){
     }
 }
 
-void server(void* args);
+void server(void* args){
+    osMessageQueueId_t queue = ((osMessageQueueId_t*)args)[0];
+    int p_rate =10; //10Hz exponentially distributed processing time
+
+    int msg_buf;
+    while (1)
+    {
+        osStatus_t status = osMessageQueueGet(queue, &msg_buf, NULL, osWaitForever);
+        if(status != osOK) printf("SUM TING WONG\n");
+        uint32_t p_time = interarrival_ticks(p_rate);
+        osDelay(p_time);
+
+        system_stats.total_p++;
+    }
+    
+}
 
 void monitor(void* args){
     while(1){
