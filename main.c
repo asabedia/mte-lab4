@@ -29,7 +29,17 @@ void arrivals(void* args);
 
 void server(void* args);
 
-void monitor(void* args);
+void monitor(void* args){
+    while(1){
+        printf(
+            "successful sent messages: %d, received messages: %d, overflows: %d\n",
+            system_stats.total_q,
+            system_stats.total_p,
+            system_stats.total_d
+            );
+        osDelay(osKernelGetTickFreq());
+    }
+}
 
 int main(void){
     //osKernelInitialize();
