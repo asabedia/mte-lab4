@@ -74,5 +74,14 @@ void monitor(void* args){
 }
 
 int main(void){
-    //osKernelInitialize();
+    osKernelInitialize();
+
+    initialize_queues();
+
+    osThreadNew(monitor, NULL, NULL);
+    osThreadNew(arrivals, NULL, NULL);
+    osThreadNew(server, &(queues[0]), NULL);
+    osThreadNew(server, &(queues[1]), NULL);
+
+    osKernelStart();
 }
