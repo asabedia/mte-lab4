@@ -25,7 +25,24 @@ void initialize_queues(void){
     }
 }
 
-void arrivals(void* args);
+void arrivals(void* args){
+    int arrival_rate = 9; // 9Hz arrival rate
+    int queue_index = 0;
+
+    int msg = 0;
+    while(1){
+        uint32_t iat = interarrival_ticks(arrival_rate); //interarrival time in ticks
+        osDelay(iat);
+        osStatus_t info = osMessageQueuePut(queues[queue_index], &msg, 0, 0);
+        printf("os status: %d\n", info);
+
+        if(info == osErrorResource) system_stats.total_d ++;
+        else{ system_stats.total_q ++; }
+
+        msg ++;
+        queue_index = (queue_index + 1) % N_QUEUE;
+    }
+}
 
 void server(void* args);
 
