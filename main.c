@@ -34,7 +34,6 @@ void arrivals(void* args){
         uint32_t iat = interarrival_ticks(arrival_rate); //interarrival time in ticks
         osDelay(iat);
         osStatus_t info = osMessageQueuePut(queues[queue_index], &msg, 0, 0);
-        printf("os status: %d\n", info);
 
         if(info == osErrorResource) system_stats.total_d ++;
         else{ system_stats.total_q ++; }
