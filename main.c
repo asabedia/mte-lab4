@@ -26,7 +26,7 @@ void initialize_queues(void){
 }
 
 void arrivals(void* args){
-    int arrival_rate = 9; // 9Hz arrival rate
+    int arrival_rate = 18; // 18Hz arrival rate
     int queue_index = 0;
 
     int msg = 0;
